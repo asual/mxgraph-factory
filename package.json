@@ -1,0 +1,31 @@
+{
+    "name": "mxgraph-factory",
+    "description": "A tiny CommonJS wrapper for mxGraph",
+    "keywords": [
+        "mxgraph",
+        "typescript"
+    ],
+    "version": "3.9.8",
+    "bugs": "https://github.com/asual/mxgraph-factory/issues",
+    "license": "Apache-2.0",
+    "author": "Rostislav Hristov <rostislav@asual.com>",
+    "repository": "asual/mxgraph-factory",
+    "scripts": {
+        "build": "webpack"
+    },
+    "main": "./index.js",
+    "types": "./index.d.ts",
+    "devDependencies": {
+        "@types/node": "10.12.10",
+        "copy-webpack-plugin": "4.6.0",
+        "exports-loader": "0.7.0",
+        "mxgraph": "3.9.8",
+        "ts-loader": "5.3.1",
+        "tslint": "5.11.0",
+        "tslint-config-prettier": "1.17.0",
+        "tslint-loader": "3.5.4",
+        "typescript": "3.1.6",
+        "webpack": "4.26.1",
+        "webpack-cli": "3.1.2"
+    }
+}

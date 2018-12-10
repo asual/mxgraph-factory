@@ -1,0 +1,14 @@
+.DS_Store
+.gitignore
+.npmignore
+.prettierrc
+.vscode
+
+src
+npm-debug.log*
+package-lock.json
+tsconfig.json
+tslint.json
+webpack.config.js
+yarn-debug.log*
+yarn-error.log*
