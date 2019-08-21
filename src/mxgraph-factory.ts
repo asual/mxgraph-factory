@@ -1,7 +1,18 @@
 import MxGraphFactory, { mxgraph } from "./mxgraph-typings";
 
 export const mxgraphFactory: typeof MxGraphFactory = (options) => {
-    Object.keys(options).forEach((key: string) => {
+    const optionKeys = [
+        "mxBasePath",
+        "mxDefaultLanguage",
+        "mxForceIncludes",
+        "mxImageBasePath",
+        "mxLanguage",
+        "mxLanguages",
+        "mxLoadResources",
+        "mxLoadStylesheets",
+        "mxResourceExtension",
+    ];
+    optionKeys.forEach((key: string) => {
         (window as any)[key] = (options as any)[key];
     });
     const mxClient: typeof mxgraph = require("mxgraph/javascript/mxClient");
