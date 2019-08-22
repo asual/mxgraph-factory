@@ -2,10 +2,8 @@
 
 ## Overview
 
-A tiny wrapper around the latest
-[mxgraph](https://github.com/jgraph/mxgraph-js) and
-[mxgraph-typings](https://github.com/lgleim/mxgraph-typings) projects that
-provides a configurable CommonJS compatible package.
+A tiny wrapper around [mxgraph](https://github.com/jgraph/mxgraph-js) that
+provides a configurable TypeScript compatible package.
 
 ## Usage
 
