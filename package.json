@@ -5,7 +5,7 @@
         "mxgraph",
         "typescript"
     ],
-    "version": "4.0.3",
+    "version": "4.0.6",
     "bugs": "https://github.com/asual/mxgraph-factory/issues",
     "license": "Apache-2.0",
     "author": "Rostislav Hristov <rostislav@asual.com>",
@@ -16,15 +16,15 @@
     "main": "./index.js",
     "types": "./index.d.ts",
     "devDependencies": {
-        "@types/node": "12.6.9",
-        "copy-webpack-plugin": "5.0.4",
+        "@types/node": "12.12.7",
+        "copy-webpack-plugin": "5.0.5",
         "exports-loader": "0.7.0",
-        "mxgraph": "4.0.3",
-        "ts-loader": "6.0.4",
-        "tslint": "5.18.0",
+        "mxgraph": "4.0.6",
+        "ts-loader": "6.2.1",
+        "tslint": "5.20.1",
         "tslint-loader": "3.5.4",
-        "typescript": "3.5.3",
-        "webpack": "4.39.1",
-        "webpack-cli": "3.3.7"
+        "typescript": "3.7.2",
+        "webpack": "4.41.2",
+        "webpack-cli": "3.3.10"
     }
 }
