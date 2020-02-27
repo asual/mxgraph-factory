@@ -69,6 +69,7 @@ const config = {
                     "mxEdgeLabelLayout",
                     "mxEdgeSegmentHandler",
                     "mxEdgeStyle",
+                    "mxPerimeter",
                     "mxEditor",
                     "mxElbowEdgeHandler",
                     "mxEllipse",
