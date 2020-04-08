@@ -131,6 +131,7 @@ const config = {
                     "mxShape",
                     "mxStackLayout",
                     "mxStencil",
+                    "mxStencilRegistry",
                     "mxStyleChange",
                     "mxStyleRegistry",
                     "mxStylesheet",

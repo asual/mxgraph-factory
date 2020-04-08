@@ -48,6 +48,7 @@ export module mxgraph {
         IS_VML: boolean;
         IS_WIN: boolean;
         IS_MAC: boolean;
+        IS_CHROMEOS: boolean;
         IS_TOUCH: boolean;
         IS_POINTER: boolean;
         IS_LOCAL: boolean;
@@ -503,6 +504,7 @@ export module mxgraph {
         strokeOpacity: number;
         flipH: boolean;
         flipV: boolean;
+        constraints: any;
         spacing: any;
         fill: any;
         gradient: any;
@@ -2018,266 +2020,203 @@ export module mxgraph {
         fadeOut(node: any, from: any, remove: any, step: any, delay: any, isEnabled: any): void;
     };
 
-	/**
-	 * Class: mxUtils
-	 * 
-	 * A singleton class that provides cross-browser helper methods.
-	 * This is a global functionality. To access the functions in this
-	 * class, use the global classname appended by the functionname.
-	 * You may have to load chrome://global/content/contentAreaUtils.js
-	 * to disable certain security restrictions in Mozilla for the <open>,
-	 * <save>, <saveAs> and <copy> function.
-	 * 
-	 * For example, the following code displays an error message:
-	 * 
-	 * (code)
-	 * mxUtils.error('Browser is not supported!', 200, false);
-	 * (end)
-	 * 
-	 * Variable: errorResource
-	 * 
-	 * Specifies the resource key for the title of the error window. If the
-	 * resource for this key does not exist then the value is used as
-	 * the title. Default is 'error'.
-	 */
+    /**
+     * Class: mxUtils
+     *
+     * A singleton class that provides cross-browser helper methods.
+     * This is a global functionality. To access the functions in this
+     * class, use the global classname appended by the functionname.
+     * You may have to load chrome://global/content/contentAreaUtils.js
+     * to disable certain security restrictions in Mozilla for the <open>,
+     * <save>, <saveAs> and <copy> function.
+     *
+     * For example, the following code displays an error message:
+     *
+     * (code)
+     * mxUtils.error('Browser is not supported!', 200, false);
+     * (end)
+     *
+     * Specifies the resource key for the title of the error window. If the
+     * resource for this key does not exist then the value is used as
+     * the title. Default is 'error'.
+     */
     export var mxUtils: {
-
         errorResource: string;
-
         /**
-         * Variable: closeResource
-         * 
          * Specifies the resource key for the label of the close button. If the
          * resource for this key does not exist then the value is used as
          * the label. Default is 'close'.
          */
         closeResource: string;
-
         /**
-         * Variable: errorImage
-         * 
          * Defines the image used for error dialogs.
          */
         errorImage: string;
-
         /**
-         * Function: removeCursors
-         * 
          * Removes the cursors from the style of the given DOM node and its
          * descendants.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * element - DOM node to remove the cursor style from.
          */
         removeCursors(element: any): void;
-
         /**
-         * Function: getCurrentStyle
-         * 
          * Returns the current style of the specified element.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * element - DOM node whose current style should be returned.
          */
         getCurrentStyle(element: any): any;
-
         /**
-         * Function: parseCssNumber
-         * 
          * Parses the given CSS numeric value adding handling for the values thin,
          * medium and thick (2, 4 and 6).
          */
         parseCssNumber(value: any): any;
-
         /**
-         * Function: setPrefixedStyle
-         * 
          * Adds the given style with the standard name and an optional vendor prefix for the current
          * browser.
-         * 
+         *
          * (code)
          * mxUtils.setPrefixedStyle(node.style, 'transformOrigin', '0% 0%');
          * (end)
          */
         setPrefixedStyle(style: any, name: any, value: any): void;
-
         /**
-         * Function: hasScrollbars
-         * 
          * Returns true if the overflow CSS property of the given node is either
          * scroll or auto.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node whose style should be checked for scrollbars.
          */
         hasScrollbars(node: any): boolean;
-
         /**
-         * Function: bind
-         * 
          * Returns a wrapper function that locks the execution scope of the given
          * function to the specified scope. Inside funct, the "this" keyword
          * becomes a reference to that scope.
          */
         bind(scope: any, funct: any): any;
-
         /**
-         * Function: eval
-         * 
          * Evaluates the given expression using eval and returns the JavaScript
          * object that represents the expression result. Supports evaluation of
          * expressions that define functions and returns the function object for
          * these expressions.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * expr - A string that represents a JavaScript expression.
          */
         eval(expr: any): any;
-
         /**
-         * Function: findNode
-         * 
          * Returns the first node where attr equals value.
          * This implementation does not use XPath.
          */
         findNode(node: any, attr: any, value: any): any;
-
         /**
-         * Function: getFunctionName
-         * 
          * Returns the name for the given function.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * f - JavaScript object that represents a function.
          */
         getFunctionName(f: any): any;
-
         /**
-         * Function: indexOf
-         * 
          * Returns the index of obj in array or -1 if the array does not contain
          * the given object.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * array - Array to check for the given obj.
          * obj - Object to find in the given array.
          */
         indexOf(array: any[], obj: any): number;
-
         /**
-         * Function: forEach
-         * 
          * Calls the given function for each element of the given array and returns
          * the array.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * array - Array that contains the elements.
          * fn - Function to be called for each object.
          */
         forEach(array: any[], fn: any): any[];
-
         /**
-         * Function: remove
-         * 
          * Removes all occurrences of the given object in the given array or
          * object. If there are multiple occurrences of the object, be they
          * associative or as an array entry, all occurrences are removed from
          * the array or deleted from the object. By removing the object from
          * the array, all elements following the removed element are shifted
          * by one step towards the beginning of the array.
-         * 
+         *
          * The length of arrays is not modified inside this function.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * obj - Object to find in the given array.
          * array - Array to check for the given obj.
          */
         remove(obj: any, array: any[]): any;
-
         /**
-         * Function: isNode
-         * 
          * Returns true if the given value is an XML node with the node name
          * and if the optional attribute has the specified value.
-         * 
+         *
          * This implementation assumes that the given value is a DOM node if the
          * nodeType property is numeric, that is, if isNaN returns false for
          * value.nodeType.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * value - Object that should be examined as a node.
          * nodeName - String that specifies the node name.
          * attributeName - Optional attribute name to check.
          * attributeValue - Optional attribute value to check.
          */
         isNode(value: any, nodeName: string | null, attributeName?: any, attributeValue?: any): boolean;
-
         /**
-         * Function: isAncestorNode
-         * 
          * Returns true if the given ancestor is an ancestor of the
          * given DOM node in the DOM. This also returns true if the
          * child is the ancestor.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * ancestor - DOM node that represents the ancestor.
          * child - DOM node that represents the child.
          */
         isAncestorNode(ancestor: any, child: any): boolean;
-
         /**
-         * Function: getChildNodes
-         * 
          * Returns an array of child nodes that are of the given node type.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - Parent DOM node to return the children from.
          * nodeType - Optional node type to return. Default is
          * <mxConstants.NODETYPE_ELEMENT>.
          */
         getChildNodes(node: any, nodeType?: any): any;
-
         /**
-         * Function: importNode
-         * 
          * Cross browser implementation for document.importNode. Uses document.importNode
          * in all browsers but IE, where the node is cloned by creating a new node and
          * copying all attributes and children into it using importNode, recursively.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * doc - Document to import the node into.
          * node - Node to be imported.
          * allChildren - If all children should be imported.
          */
         importNode(doc: any, node: any, allChildren: any): any;
-
         /**
-         * Function: createXmlDocument
-         * 
          * Returns a new, empty XML document.
          */
         createXmlDocument(): any;
-
         /**
-         * Function: parseXml
-         * 
          * Parses the specified XML string into a new XML document and returns the
          * new document.
-         * 
+         *
          * Example:
-         * 
+         *
          * (code)
          * var doc = mxUtils.parseXml(
          *   '<mxGraphModel><root><MyDiagram id="0"><mxCell/></MyDiagram>'+
@@ -2286,29 +2225,23 @@ export module mxgraph {
          *   '<mxGeometry x="10" y="10" width="80" height="30" as="geometry"/>'+
          *   '</mxCell></MyObject></root></mxGraphModel>');
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * xml - String that contains the XML data.
          */
         parseXml(xml: any): any;
-
         /**
-         * Function: clearSelection
-         * 
          * Clears the current selection in the page.
          */
         clearSelection(): void;
-
         /**
-         * Function: getPrettyXML
-         * 
          * Returns a pretty printed string that represents the XML tree for the
          * given node. This method should only be used to print XML for reading,
          * use <getXml> instead to obtain a string for processing.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to return the XML for.
          * tab - Optional string that specifies the indentation for one level.
          * Default is two spaces.
@@ -2316,216 +2249,165 @@ export module mxgraph {
          * Default is an empty string.
          */
         getPrettyXml(node: any, tab?: string, indent?: string): string;
-
         /**
-         * Function: removeWhitespace
-         * 
          * Removes the sibling text nodes for the given node that only consists
          * of tabs, newlines and spaces.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node whose siblings should be removed.
          * before - Optional boolean that specifies the direction of the traversal.
          */
         removeWhitespace(node: any, before?: boolean): void;
-
         /**
-         * Function: htmlEntities
-         * 
          * Replaces characters (less than, greater than, newlines and quotes) with
          * their HTML entities in the given string and returns the result.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * s - String that contains the characters to be converted.
          * newline - If newlines should be replaced. Default is true.
          */
         htmlEntities(s: string, newline?: boolean): string;
-
         /**
-         * Function: isVml
-         * 
          * Returns true if the given node is in the VML namespace.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node whose tag urn should be checked.
          */
         isVml(node: any): boolean;
-
         /**
-         * Function: getXml
-         * 
          * Returns the XML content of the specified node. For Internet Explorer,
          * all \r\n\t[\t]* are removed from the XML string and the remaining \r\n
          * are replaced by \n. All \n are then replaced with linefeed, or &#xa; if
          * no linefeed is defined.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to return the XML for.
          * linefeed - Optional string that linefeeds are converted into. Default is
          * &#xa;
          */
         getXml(node: any, linefeed?: string): any;
-
         /**
-         * Function: extractTextWithWhitespace
-         * 
          * Returns the text content of the specified node.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * elems - DOM nodes to return the text for.
          */
         extractTextWithWhitespace(elems: any): any;
-
         /**
-         * Function: replaceTrailingNewlines
-         * 
          * Replaces each trailing newline with the given pattern.
          */
         replaceTrailingNewlines(str: string, pattern: any): string;
-
         /**
-         * Function: getTextContent
-         * 
          * Returns the text content of the specified node.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to return the text content for.
          */
         getTextContent(node: any): any;
-
         /**
-         * Function: setTextContent
-         * 
          * Sets the text content of the specified node.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to set the text content for.
          * text - String that represents the text content.
          */
         setTextContent(node: any, text: any): void;
-
         /**
-         * Function: getInnerHtml
-         * 
          * Returns the inner HTML for the given node as a string or an empty string
          * if no node was specified. The inner HTML is the text representing all
          * children of the node, but not the node itself.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to return the inner HTML for.
          */
         getInnerHtml(node: any): string;
-
         /**
-         * Function: getOuterHtml
-         * 
          * Returns the outer HTML for the given node as a string or an empty
          * string if no node was specified. The outer HTML is the text representing
          * all children of the node including the node itself.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to return the outer HTML for.
          */
         getOuterHtml(node: any): string;
-
         /**
-         * Function: write
-         * 
          * Creates a text node for the given string and appends it to the given
          * parent. Returns the text node.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to append the text node to.
          * text - String representing the text to be added.
          */
         write(parent: any, text: string): any;
-
         /**
-         * Function: writeln
-         * 
          * Creates a text node for the given string and appends it to the given
          * parent with an additional linefeed. Returns the text node.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to append the text node to.
          * text - String representing the text to be added.
          */
         writeln(parent: any, text: string): any;
-
         /**
-         * Function: br
-         * 
          * Appends a linebreak to the given parent and returns the linebreak.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to append the linebreak to.
          */
         br(parent: any, count?: number): any;
-
         /**
-         * Function: button
-         * 
          * Returns a new button with the given level and function as an onclick
          * event handler.
-         * 
+         *
          * (code)
          * document.body.appendChild(mxUtils.button('Test', function(evt)
          * {
          *   alert('Hello, World!');
          * }));
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * label - String that represents the label of the button.
          * funct - Function to be called if the button is pressed.
          * doc - Optional document to be used for creating the button. Default is the
          * current document.
          */
         button(label: string, funct: any, doc?: any): any;
-
         /**
-         * Function: para
-         * 
          * Appends a new paragraph with the given text to the specified parent and
          * returns the paragraph.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to append the text node to.
          * text - String representing the text for the new paragraph.
          */
         para(parent: any, text: string): any;
-
         /**
-         * Function: addTransparentBackgroundFilter
-         * 
          * Adds a transparent background to the filter of the given node. This
          * background can be used in IE8 standards mode (native IE8 only) to pass
          * events through the node.
          */
         addTransparentBackgroundFilter(node: any): void;
-
         /**
-         * Function: linkAction
-         * 
          * Adds a hyperlink to the specified parent that invokes action on the
          * specified editor.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to contain the new link.
          * text - String that is used as the link label.
          * editor - <mxEditor> that will execute the action.
@@ -2533,17 +2415,14 @@ export module mxgraph {
          * pad - Optional left-padding for the link. Default is 0.
          */
         linkAction(parent: any, text: string, editor: any, action: string, pad?: any): any;
-
         /**
-         * Function: linkInvoke
-         * 
          * Adds a hyperlink to the specified parent that invokes the specified
          * function on the editor passing along the specified argument. The
          * function name is the name of a function of the editor instance,
          * not an action name.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to contain the new link.
          * text - String that is used as the link label.
          * editor - <mxEditor> instance to execute the function on.
@@ -2552,46 +2431,34 @@ export module mxgraph {
          * pad - Optional left-padding for the link. Default is 0.
          */
         linkInvoke(parent: any, text: string, editor: any, functName: string, arg: any, pad?: any): any;
-
         /**
-         * Function: link
-         * 
          * Adds a hyperlink to the specified parent and invokes the given function
          * when the link is clicked.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * parent - DOM node to contain the new link.
          * text - String that is used as the link label.
          * funct - Function to execute when the link is clicked.
          * pad - Optional left-padding for the link. Default is 0.
          */
         link(parent: any, text: string, funct: any, pad?: any): any;
-
         /**
-         * Function: getDocumentSize
-         * 
          * Returns the client size for the current document as an <mxRectangle>.
          */
         getDocumentSize(): any;
-
         /**
-         * Function: fit
-         * 
          * Makes sure the given node is inside the visible area of the window. This
-         * is done by setting the left and top in the style. 
+         * is done by setting the left and top in the style.
          */
         fit(node: any): void;
-
         /**
-         * Function: load
-         * 
          * Loads the specified URL *synchronously* and returns the <mxXmlRequest>.
          * Throws an exception if the file cannot be loaded. See <mxUtils.get> for
          * an asynchronous implementation.
          *
          * Example:
-         * 
+         *
          * (code)
          * try
          * {
@@ -2604,23 +2471,20 @@ export module mxgraph {
          *   mxUtils.alert('Cannot load '+filename+': '+ex);
          * }
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * url - URL to get the data from.
          */
         load(url: string): any;
-
         /**
-         * Function: get
-         * 
          * Loads the specified URL *asynchronously* and invokes the given functions
          * depending on the request status. Returns the <mxXmlRequest> in use. Both
          * functions take the <mxXmlRequest> as the only parameter. See
          * <mxUtils.load> for a synchronous implementation.
          *
          * Example:
-         * 
+         *
          * (code)
          * mxUtils.get(url, function(req)
          * {
@@ -2628,10 +2492,10 @@ export module mxgraph {
          *    // Process XML DOM...
          * });
          * (end)
-         * 
+         *
          * So for example, to load a diagram into an existing graph model, the
          * following code is used.
-         * 
+         *
          * (code)
          * mxUtils.get(url, function(req)
          * {
@@ -2640,9 +2504,9 @@ export module mxgraph {
          *   dec.decode(node, graph.getModel());
          * });
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * url - URL to get the data from.
          * onload - Optional function to execute for a successful response.
          * onerror - Optional function to execute on error.
@@ -2652,25 +2516,19 @@ export module mxgraph {
          * ontimeout - Optional function to execute on timeout.
          */
         get(url: string, onload?: any, onerror?: any, binary?: boolean, timeout?: number, ontimeout?: any): any;
-
         /**
-         * Function: getAll
-         * 
          * Loads the URLs in the given array *asynchronously* and invokes the given function
          * if all requests returned with a valid 2xx status. The error handler is invoked
          * once on the first error or invalid response.
          *
          * Parameters:
-         * 
+         *
          * urls - Array of URLs to be loaded.
          * onload - Callback with array of <mxXmlRequests>.
          * onerror - Optional function to execute on error.
          */
         getAll(urls: string[], onload?: any, onerror?: any): void;
-
         /**
-         * Function: post
-         * 
          * Posts the specified params to the given URL *asynchronously* and invokes
          * the given functions depending on the request status. Returns the
          * <mxXmlRequest> in use. Both functions take the <mxXmlRequest> as the
@@ -2678,7 +2536,7 @@ export module mxgraph {
          * values.
          *
          * Example:
-         * 
+         *
          * (code)
          * mxUtils.post(url, 'key=value', function(req)
          * {
@@ -2686,104 +2544,86 @@ export module mxgraph {
          *  // Process req.getDocumentElement() using DOM API if OK...
          * });
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * url - URL to get the data from.
          * params - Parameters for the post request.
          * onload - Optional function to execute for a successful response.
          * onerror - Optional function to execute on error.
          */
         post(url: string, params: any, onload: any, onerror: any): any;
-
         /**
-         * Function: submit
-         * 
          * Submits the given parameters to the specified URL using
          * <mxXmlRequest.simulate> and returns the <mxXmlRequest>.
          * Make sure to use encodeURIComponent for the parameter
          * values.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * url - URL to get the data from.
          * params - Parameters for the form.
          * doc - Document to create the form in.
          * target - Target to send the form result to.
          */
         submit(url: string, params: any, doc: any, target: any): any;
-
         /**
-         * Function: loadInto
-         * 
          * Loads the specified URL *asynchronously* into the specified document,
          * invoking onload after the document has been loaded. This implementation
          * does not use <mxXmlRequest>, but the document.load method.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * url - URL to get the data from.
          * doc - The document to load the URL into.
          * onload - Function to execute when the URL has been loaded.
          */
         loadInto(url: string, doc: any, onload: any): void;
-
         /**
-         * Function: getValue
-         * 
          * Returns the value for the given key in the given associative array or
          * the given default value if the value is null.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * array - Associative array that contains the value for the key.
          * key - Key whose value should be returned.
          * defaultValue - Value to be returned if the value for the given
          * key is null.
          */
         getValue(array: any, key: any, defaultValue: any): any;
-
         /**
-         * Function: getNumber
-         * 
          * Returns the numeric value for the given key in the given associative
          * array or the given default value (or 0) if the value is null. The value
          * is converted to a numeric value using the Number function.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * array - Associative array that contains the value for the key.
          * key - Key whose value should be returned.
          * defaultValue - Value to be returned if the value for the given
          * key is null. Default is 0.
          */
         getNumber(array: any, key: any, defaultValue: any): number;
-
         /**
-         * Function: getColor
-         * 
          * Returns the color value for the given key in the given associative
          * array or the given default value if the value is null. If the value
          * is <mxConstants.NONE> then null is returned.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * array - Associative array that contains the value for the key.
          * key - Key whose value should be returned.
          * defaultValue - Value to be returned if the value for the given
          * key is null. Default is null.
          */
         getColor(array: any, key: any, defaultValue: any): any;
-
         /**
-         * Function: clone
-         * 
          * Recursively clones the specified object ignoring all fieldnames in the
          * given array of transient fields. <mxObjectIdentity.FIELD_NAME> is always
          * ignored by this function.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * obj - Object to be cloned.
          * transients - Optional array of strings representing the fieldname to be
          * ignored.
@@ -2793,250 +2633,193 @@ export module mxgraph {
          * cloned. Default is false.
          */
         clone(obj: any, transients?: string[], shallow?: boolean): any;
-
         /**
-         * Function: equalPoints
-         * 
          * Compares all mxPoints in the given lists.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * a - Array of <mxPoints> to be compared.
          * b - Array of <mxPoints> to be compared.
          */
         equalPoints(a: any[], b: any[]): boolean;
-
         /**
-         * Function: equalEntries
-         * 
          * Returns true if all properties of the given objects are equal. Values
          * with NaN are equal to NaN and unequal to any other value.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * a - First object to be compared.
          * b - Second object to be compared.
          */
         equalEntries(a: any, b: any): any;
-
         /**
-         * Function: removeDuplicates
-         * 
          * Removes all duplicates from the given array.
          */
         removeDuplicates(arr: any[]): any[];
-
         /**
-         * Function: isNaN
-         *
          * Returns true if the given value is of type number and isNaN returns true.
          */
         isNaN(value: any): boolean;
-
         /**
-         * Function: extend
-         *
          * Assigns a copy of the superclass prototype to the subclass prototype.
          * Note that this does not call the constructor of the superclass at this
          * point, the superclass constructor should be called explicitely in the
          * subclass constructor. Below is an example.
-         * 
+         *
          * (code)
          * MyGraph = function(container, model, renderHint, stylesheet)
          * {
          *   mxGraph.call(this, container, model, renderHint, stylesheet);
          * }
-         * 
+         *
          * mxUtils.extend(MyGraph, mxGraph);
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * ctor - Constructor of the subclass.
          * superCtor - Constructor of the superclass.
          */
         extend(ctor: any, superCtor: any): void;
-
         /**
-         * Function: toString
-         * 
          * Returns a textual representation of the specified object.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * obj - Object to return the string representation for.
          */
         toString(obj: any): string;
-
         /**
-         * Function: toRadians
-         * 
          * Converts the given degree to radians.
          */
         toRadians(deg: number): number;
-
         /**
-         * Function: toDegree
-         * 
          * Converts the given radians to degree.
          */
         toDegree(rad: number): number;
-
         /**
-         * Function: arcToCurves
-         * 
          * Converts the given arc to a series of curves.
          */
-        arcToCurves(x0: number, y0: number, r1: number, r2: number, angle: number, largeArcFlag: any, sweepFlag: any, x: number, y: number): number[];
-
+        arcToCurves(
+            x0: number,
+            y0: number,
+            r1: number,
+            r2: number,
+            angle: number,
+            largeArcFlag: any,
+            sweepFlag: any,
+            x: number,
+            y: number,
+        ): number[];
         /**
-         * Function: getBoundingBox
-         * 
          * Returns the bounding box for the rotated rectangle.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * rect - <mxRectangle> to be rotated.
          * angle - Number that represents the angle (in degrees).
          * cx - Optional <mxPoint> that represents the rotation center. If no
          * rotation center is given then the center of rect is used.
          */
         getBoundingBox(rect: any, rotation: number, cx?: any): any;
-
         /**
-         * Function: getRotatedPoint
-         * 
          * Rotates the given point by the given cos and sin.
          */
         getRotatedPoint(pt: any, cos: any, sin: any, c: any): any;
-
         /**
          * Returns an integer mask of the port constraints of the given map
          * @param dict the style map to determine the port constraints for
          * @param defaultValue Default value to return if the key is undefined.
          * @return the mask of port constraint directions
-         * 
+         *
          * Parameters:
-         * 
+         *
          * terminal - <mxCelState> that represents the terminal.
          * edge - <mxCellState> that represents the edge.
          * source - Boolean that specifies if the terminal is the source terminal.
          * defaultValue - Default value to be returned.
          */
         getPortConstraints(terminal: any, edge: any, source: boolean, defaultValue: any): any;
-
         /**
-         * Function: reversePortConstraints
-         * 
          * Reverse the port constraint bitmask. For example, north | east
          * becomes south | west
          */
         reversePortConstraints(constraint: any): any;
-
         /**
-         * Function: findNearestSegment
-         * 
          * Finds the index of the nearest segment on the given cell state for
          * the specified coordinate pair.
          */
         findNearestSegment(state: any, x: any, y: any): any;
-
         /**
-         * Function: getDirectedBounds
-         * 
          * Adds the given margins to the given rectangle and rotates and flips the
          * rectangle according to the respective styles in style.
          */
         getDirectedBounds(rect: any, m: any, style: any, flipH: any, flipV: any): any;
-
         /**
-         * Function: getPerimeterPoint
-         * 
          * Returns the intersection between the polygon defined by the array of
          * points and the line between center and point.
          */
         getPerimeterPoint(pts: any, center: any, point: any): any;
-
         /**
-         * Function: rectangleIntersectsSegment
-         * 
          * Returns true if the given rectangle intersects the given segment.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * bounds - <mxRectangle> that represents the rectangle.
          * p1 - <mxPoint> that represents the first point of the segment.
          * p2 - <mxPoint> that represents the second point of the segment.
          */
         rectangleIntersectsSegment(bounds: any, p1: any, p2: any): boolean;
-
         /**
-         * Function: contains
-         * 
          * Returns true if the specified point (x, y) is contained in the given rectangle.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * bounds - <mxRectangle> that represents the area.
          * x - X-coordinate of the point.
          * y - Y-coordinate of the point.
          */
         contains(bounds: any, x: number, y: number): boolean;
-
         /**
-         * Function: intersects
-         * 
          * Returns true if the two rectangles intersect.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * a - <mxRectangle> to be checked for intersection.
          * b - <mxRectangle> to be checked for intersection.
          */
         intersects(a: any, b: any): boolean;
-
         /**
-         * Function: intersects
-         * 
          * Returns true if the two rectangles intersect.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * a - <mxRectangle> to be checked for intersection.
          * b - <mxRectangle> to be checked for intersection.
          */
         intersectsHotspot(state: any, x: any, y: any, hotspot: any, min: any, max: any): boolean;
-
         /**
-         * Function: getOffset
-         * 
          * Returns the offset for the specified container as an <mxPoint>. The
          * offset is the distance from the top left corner of the container to the
          * top left corner of the document.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * container - DOM node to return the offset for.
          * scollOffset - Optional boolean to add the scroll offset of the document.
          * Default is false.
          */
         getOffset(container: any, scrollOffset?: boolean): any;
-
         /**
-         * Function: getDocumentScrollOrigin
-         * 
          * Returns the scroll origin of the given document or the current document
          * if no document is given.
          */
         getDocumentScrollOrigin(doc: any): any;
-
         /**
-         * Function: getScrollOrigin
-         * 
          * Returns the top, left corner of the viewrect as an <mxPoint>.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node whose scroll origin should be returned.
          * includeAncestors - Whether the scroll origin of the ancestors should be
          * included. Default is false.
@@ -3044,32 +2827,26 @@ export module mxgraph {
          * included. Default is true.
          */
         getScrollOrigin(node: any, includeAncestors?: boolean, includeDocument?: boolean): any;
-
         /**
-         * Function: convertPoint
-         * 
          * Converts the specified point (x, y) using the offset of the specified
          * container and returns a new <mxPoint> with the result.
-         * 
+         *
          * (code)
          * var pt = mxUtils.convertPoint(graph.container,
          *   mxEvent.getClientX(evt), mxEvent.getClientY(evt));
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * container - DOM node to use for the offset.
          * x - X-coordinate of the point to be converted.
          * y - Y-coordinate of the point to be converted.
          */
         convertPoint(container: any, x: number, y: number): any;
-
         /**
-         * Function: ltrim
-         * 
          * Strips all whitespaces from the beginning of the string. Without the
          * second parameter, this will trim these characters:
-         * 
+         *
          * - " " (ASCII 32 (0x20)), an ordinary space
          * - "\t" (ASCII 9 (0x09)), a tab
          * - "\n" (ASCII 10 (0x0A)), a new line (line feed)
@@ -3078,13 +2855,10 @@ export module mxgraph {
          * - "\x0B" (ASCII 11 (0x0B)), a vertical tab
          */
         ltrim(str: string, chars?: string): string;
-
         /**
-         * Function: rtrim
-         * 
          * Strips all whitespaces from the end of the string. Without the second
          * parameter, this will trim these characters:
-         * 
+         *
          * - " " (ASCII 32 (0x20)), an ordinary space
          * - "\t" (ASCII 9 (0x09)), a tab
          * - "\n" (ASCII 10 (0x0A)), a new line (line feed)
@@ -3093,14 +2867,11 @@ export module mxgraph {
          * - "\x0B" (ASCII 11 (0x0B)), a vertical tab
          */
         rtrim(str: string, chars?: string): string;
-
         /**
-         * Function: trim
-         * 
          * Strips all whitespaces from both end of the string.
          * Without the second parameter, Javascript function will trim these
          * characters:
-         * 
+         *
          * - " " (ASCII 32 (0x20)), an ordinary space
          * - "\t" (ASCII 9 (0x09)), a tab
          * - "\n" (ASCII 10 (0x0A)), a new line (line feed)
@@ -3109,46 +2880,34 @@ export module mxgraph {
          * - "\x0B" (ASCII 11 (0x0B)), a vertical tab
          */
         trim(str: string, chars?: string): string;
-
         /**
-         * Function: isNumeric
-         * 
          * Returns true if the specified value is numeric, that is, if it is not
          * null, not an empty string, not a HEX number and isNaN returns false.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * n - String representing the possibly numeric value.
          */
         isNumeric(n: any): boolean;
-
         /**
-         * Function: isInteger
-         * 
          * Returns true if the given value is an valid integer number.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * n - String representing the possibly numeric value.
          */
         isInteger(n: any): boolean;
-
         /**
-         * Function: mod
-         * 
          * Returns the remainder of division of n by m. You should use this instead
          * of the built-in operation as the built-in operation does not properly
          * handle negative numbers.
          */
         mod(n: number, m: number): number;
-
         /**
-         * Function: intersection
-         * 
          * Returns the intersection of two lines as an <mxPoint>.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * x0 - X-coordinate of the first line's startpoint.
          * y0 - X-coordinate of the first line's startpoint.
          * x1 - X-coordinate of the first line's endpoint.
@@ -3158,17 +2917,23 @@ export module mxgraph {
          * x3 - X-coordinate of the second line's endpoint.
          * y3 - Y-coordinate of the second line's endpoint.
          */
-        intersection(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): any;
-
+        intersection(
+            x0: number,
+            y0: number,
+            x1: number,
+            y1: number,
+            x2: number,
+            y2: number,
+            x3: number,
+            y3: number,
+        ): any;
         /**
-         * Function: ptSegDistSq
-         * 
          * Returns the square distance between a segment and a point. To get the
          * distance between a point and a line (with infinite length) use
          * <mxUtils.ptLineDist>.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * x1 - X-coordinate of the startpoint of the segment.
          * y1 - Y-coordinate of the startpoint of the segment.
          * x2 - X-coordinate of the endpoint of the segment.
@@ -3177,16 +2942,13 @@ export module mxgraph {
          * py - Y-coordinate of the point.
          */
         ptSegDistSq(x1: number, y1: number, x2: number, y2: number, px: number, py: number): any;
-
         /**
-         * Function: ptLineDist
-         * 
          * Returns the distance between a line defined by two points and a point.
          * To get the distance between a point and a segment (with a specific
          * length) use <mxUtils.ptSeqDistSq>.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * x1 - X-coordinate of point 1 of the line.
          * y1 - Y-coordinate of point 1 of the line.
          * x2 - X-coordinate of point 1 of the line.
@@ -3195,15 +2957,12 @@ export module mxgraph {
          * py - Y-coordinate of the point.
          */
         ptLineDist(x1: number, y1: number, x2: number, y2: number, px: number, py: number): number;
-
         /**
-         * Function: relativeCcw
-         * 
          * Returns 1 if the given point on the right side of the segment, 0 if its
          * on the segment, and -1 if the point is on the left side of the segment.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * x1 - X-coordinate of the startpoint of the segment.
          * y1 - Y-coordinate of the startpoint of the segment.
          * x2 - X-coordinate of the endpoint of the segment.
@@ -3212,158 +2971,113 @@ export module mxgraph {
          * py - Y-coordinate of the point.
          */
         relativeCcw(x1: number, y1: number, x2: number, y2: number, px: number, py: number): number;
-
         /**
-         * Function: animateChanges
-         * 
          * See <mxEffects.animateChanges>. This is for backwards compatibility and
          * will be removed later.
          */
         animateChanges(graph: any, changes: any): void;
-
         /**
-         * Function: cascadeOpacity
-         * 
          * See <mxEffects.cascadeOpacity>. This is for backwards compatibility and
          * will be removed later.
          */
         cascadeOpacity(graph: any, cell: any, opacity: any): void;
-
         /**
-         * Function: fadeOut
-         * 
          * See <mxEffects.fadeOut>. This is for backwards compatibility and
          * will be removed later.
          */
         fadeOut(node: any, from: any, remove: any, step: any, delay: any, isEnabled: boolean): void;
-
         /**
-         * Function: setOpacity
-         * 
          * Sets the opacity of the specified DOM node to the given value in %.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * node - DOM node to set the opacity for.
          * value - Opacity in %. Possible values are between 0 and 100.
          */
         setOpacity(node: any, value: number): void;
-
         /**
-         * Function: createImage
-         * 
          * Creates and returns an image (IMG node) or VML image (v:image) in IE6 in
          * quirks mode.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * src - URL that points to the image to be displayed.
          */
         createImage(src: string): any;
-
         /**
-         * Function: sortCells
-         * 
          * Sorts the given cells according to the order in the cell hierarchy.
          * Ascending is optional and defaults to true.
          */
         sortCells(cells: any, ascending?: boolean): any;
-
         /**
-         * Function: getStylename
-         * 
          * Returns the stylename in a style of the form [(stylename|key=value);] or
          * an empty string if the given style does not contain a stylename.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * style - String of the form [(stylename|key=value);].
          */
         getStylename(style: any): string;
-
         /**
-         * Function: getStylenames
-         * 
          * Returns the stylenames in a style of the form [(stylename|key=value);]
          * or an empty array if the given style does not contain any stylenames.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * style - String of the form [(stylename|key=value);].
          */
         getStylenames(style: any): string[];
-
         /**
-         * Function: indexOfStylename
-         * 
          * Returns the index of the given stylename in the given style. This
          * returns -1 if the given stylename does not occur (as a stylename) in the
          * given style, otherwise it returns the index of the first character.
          */
         indexOfStylename(style: any, stylename: string): number;
-
         /**
-         * Function: addStylename
-         * 
          * Adds the specified stylename to the given style if it does not already
          * contain the stylename.
          */
         addStylename(style: any, stylename: string): any;
-
         /**
-         * Function: removeStylename
-         * 
          * Removes all occurrences of the specified stylename in the given style
          * and returns the updated style. Trailing semicolons are not preserved.
          */
         removeStylename(style: any, stylename: string): any;
-
         /**
-         * Function: removeAllStylenames
-         * 
          * Removes all stylenames from the given style and returns the updated
          * style.
          */
         removeAllStylenames(style: any): any;
-
         /**
-         * Function: setCellStyles
-         * 
          * Assigns the value for the given key in the styles of the given cells, or
          * removes the key from the styles if the value is null.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * model - <mxGraphModel> to execute the transaction in.
          * cells - Array of <mxCells> to be updated.
          * key - Key of the style to be changed.
          * value - New value for the given key.
          */
         setCellStyles(model: any, cells: any, key: any, value: any): void;
-
         /**
-         * Function: setStyle
-         * 
          * Adds or removes the given key, value pair to the style and returns the
          * new style. If value is null or zero length then the key is removed from
          * the style. This is for cell styles, not for CSS styles.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * style - String of the form [(stylename|key=value);].
          * key - Key of the style to be changed.
          * value - New value for the given key.
          */
         setStyle(style: any, key: any, value: any): any;
-
         /**
-         * Function: setCellStyleFlags
-         * 
          * Sets or toggles the flag bit for the given key in the cell's styles.
          * If value is null then the flag is toggled.
-         * 
+         *
          * Example:
-         * 
+         *
          * (code)
          * var cells = graph.getSelectionCells();
          * mxUtils.setCellStyleFlags(graph.model,
@@ -3371,11 +3085,11 @@ export module mxgraph {
          * 			mxConstants.STYLE_FONTSTYLE,
          * 			mxConstants.FONT_BOLD);
          * (end)
-         * 
+         *
          * Toggles the bold font style.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * model - <mxGraphModel> that contains the cells.
          * cells - Array of <mxCells> to change the style for.
          * key - Key of the style to be changed.
@@ -3383,49 +3097,40 @@ export module mxgraph {
          * value - Optional boolean value for the flag.
          */
         setCellStyleFlags(model: any, cells: any[], key: any, flag: any, value?: boolean): void;
-
         /**
-         * Function: setStyleFlag
-         * 
          * Sets or removes the given key from the specified style and returns the
          * new style. If value is null then the flag is toggled.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * style - String of the form [(stylename|key=value);].
          * key - Key of the style to be changed.
          * flag - Integer for the bit to be changed.
          * value - Optional boolean value for the given flag.
          */
         setStyleFlag(style: any, key: any, flag: any, value?: boolean): any;
-
         /**
-         * Function: getAlignmentAsPoint
-         * 
          * Returns an <mxPoint> that represents the horizontal and vertical alignment
          * for numeric computations. X is -0.5 for center, -1 for right and 0 for
          * left alignment. Y is -0.5 for middle, -1 for bottom and 0 for top
          * alignment. Default values for missing arguments is top, left.
          */
         getAlignmentAsPoint(align: any, valign: any): any;
-
         /**
-         * Function: getSizeForString
-         * 
          * Returns an <mxRectangle> with the size (width and height in pixels) of
          * the given string. The string may contain HTML markup. Newlines should be
          * converted to <br> before calling this method. The caller is responsible
          * for sanitizing the HTML markup.
-         * 
+         *
          * Example:
-         * 
+         *
          * (code)
          * var label = graph.getLabel(cell).replace(/\n/g, "<br>");
          * var size = graph.getSizeForString(label);
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * text - String whose size should be returned.
          * fontSize - Integer that specifies the font size in pixels. Default is
          * <mxConstants.DEFAULT_FONTSIZE>.
@@ -3434,22 +3139,15 @@ export module mxgraph {
          * textWidth - Optional width for text wrapping.
          */
         getSizeForString(text: string, fontSize: number, fontFamily: string, textWidth?: number): any;
-
-        /**
-         * Function: getViewXml
-         */
         getViewXml(graph: any, scale: any, cells: any, x0: number, y0: number): any;
-
         /**
-         * Function: getScaleForPageCount
-         * 
          * Returns the scale to be used for printing the graph with the given
          * bounds across the specifies number of pages with the given format. The
          * scale is always computed such that it given the given amount or fewer
          * pages in the print output. See <mxPrintPreview> for an example.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * pageCount - Specifies the number of pages in the print output.
          * graph - <mxGraph> that should be printed.
          * pageFormat - Optional <mxRectangle> that specifies the page format.
@@ -3457,19 +3155,16 @@ export module mxgraph {
          * border - The border along each side of every page.
          */
         getScaleForPageCount(pageCount: any, graph: any, pageFormat: any, border: any): number;
-
         /**
-         * Function: show
-         * 
          * Copies the styles and the markup from the graph's container into the
          * given document and removes all cursor styles. The document is returned.
-         * 
+         *
          * This function should be called from within the document with the graph.
          * If you experience problems with missing stylesheets in IE then try adding
          * the domain to the trusted sites.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * graph - <mxGraph> to be copied.
          * doc - Document where the new graph is created.
          * x0 - X-coordinate of the graph view origin. Default is 0.
@@ -3478,100 +3173,79 @@ export module mxgraph {
          * h - Optional height of the graph view.
          */
         show(graph: any, doc: any, x0: number, y0: number, w?: number, h?: number): any;
-
         /**
-         * Function: printScreen
-         * 
          * Prints the specified graph using a new window and the built-in print
          * dialog.
-         * 
+         *
          * This function should be called from within the document with the graph.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * graph - <mxGraph> to be printed.
          */
         printScreen(graph: any): void;
-
         /**
-         * Function: popup
-         * 
          * Shows the specified text content in a new <mxWindow> or a new browser
          * window if isInternalWindow is false.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * content - String that specifies the text to be displayed.
          * isInternalWindow - Optional boolean indicating if an mxWindow should be
          * used instead of a new browser window. Default is false.
          */
         popup(content: string, isInternalWindow?: boolean): void;
-
         /**
-         * Function: alert
-         * 
          * Displayss the given alert in a new dialog. This implementation uses the
          * built-in alert function. This is used to display validation errors when
          * connections cannot be changed or created.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * message - String specifying the message to be displayed.
          */
         alert(message: string): void;
-
         /**
-         * Function: prompt
-         * 
          * Displays the given message in a prompt dialog. This implementation uses
          * the built-in prompt function.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * message - String specifying the message to be displayed.
          * defaultValue - Optional string specifying the default value.
          */
         prompt(message: string, defaultValue?: string): any;
-
         /**
-         * Function: confirm
-         * 
          * Displays the given message in a confirm dialog. This implementation uses
          * the built-in confirm function.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * message - String specifying the message to be displayed.
          */
         confirm(message: string): any;
-
         /**
-         * Function: error
-         * 
          * Displays the given error message in a new <mxWindow> of the given width.
          * If close is true then an additional close button is added to the window.
          * The optional icon specifies the icon to be used for the window. Default
          * is <mxUtils.errorImage>.
-         * 
+         *
          * Parameters:
-         * 
+         *
          * message - String specifying the message to be displayed.
          * width - Integer specifying the width of the window.
          * close - Optional boolean indicating whether to add a close button.
          * icon - Optional icon for the window decoration.
          */
         error(message: string, width: number, close?: boolean, icon?: boolean): any;
-
         /**
-         * Function: makeDraggable
-         * 
          * Configures the given DOM element to act as a drag source for the
          * specified graph. Returns a a new <mxDragSource>. If
          * <mxDragSource.guideEnabled> is enabled then the x and y arguments must
          * be used in funct to match the preview location.
-         * 
+         *
          * Example:
-         * 
+         *
          * (code)
          * var funct = function(graph, evt, cell, x, y)
          * {
@@ -3579,7 +3253,7 @@ export module mxgraph {
          *   {
          *     var parent = graph.getDefaultParent();
          *     var vertex = null;
-         *     
+         *
          *     graph.getModel().beginUpdate();
          *     try
          *     {
@@ -3593,7 +3267,7 @@ export module mxgraph {
          *     graph.setSelectionCell(vertex);
          *   }
          * }
-         * 
+         *
          * var img = document.createElement('img');
          * img.setAttribute('src', 'editors/images/rectangle.gif');
          * img.style.position = 'absolute';
@@ -3601,16 +3275,16 @@ export module mxgraph {
          * img.style.top = '0px';
          * img.style.width = '16px';
          * img.style.height = '16px';
-         * 
+         *
          * var dragImage = img.cloneNode(true);
          * dragImage.style.width = '32px';
          * dragImage.style.height = '32px';
          * mxUtils.makeDraggable(img, graph, funct, dragImage);
          * document.body.appendChild(img);
          * (end)
-         * 
+         *
          * Parameters:
-         * 
+         *
          * element - DOM element to make draggable.
          * graphF - <mxGraph> that acts as the drop target or a function that takes a
          * mouse event and returns the current <mxGraph>.
@@ -3630,9 +3304,18 @@ export module mxgraph {
          * getDropTarget - Optional function to return the drop target for a given
          * location (x, y). Default is mxGraph.getCellAt.
          */
-        makeDraggable(element: any, graphF: any, funct: any, dragElement?: any, dx?: number, dy?: number, autoscroll?: boolean,
-            scalePreview?: boolean, highlightDropTargets?: any, getDropTarget?: any): any;
-
+        makeDraggable(
+            element: any,
+            graphF: any,
+            funct: any,
+            dragElement?: any,
+            dx?: number,
+            dy?: number,
+            autoscroll?: boolean,
+            scalePreview?: boolean,
+            highlightDropTargets?: any,
+            getDropTarget?: any,
+        ): any;
     };
 
     export var mxConstants: {
@@ -4140,7 +3823,7 @@ export module mxgraph {
         removeGestureListeners(node: any, startListener: any, moveListener: any, endListener: any): void;
         redirectMouseEvents(node: any, graph: any, state: any, down: any, move: any, up: any, dblClick: any): void;
         release(element: any): void;
-        addMouseWheelListener(funct: any): void;
+        addMouseWheelListener(funct: any, target: any): void;
         disableContextMenu: (element: any) => void;
         getSource(evt: any): any;
         isConsumed(evt: any): boolean;
@@ -4896,6 +4579,81 @@ export module mxgraph {
     export class mxDragSource {
         constructor(element: any, dropHandler: any);
         /**
+         * Reference to the DOM node which was made draggable.
+         */
+        element: any;
+        /**
+         * Holds the DOM node that is used to represent the drag preview. If this is
+         * null then the source element will be cloned and used for the drag preview.
+         */
+        dropHandler: any;
+        /**
+         * <mxPoint> that specifies the offset of the <dragElement>. Default is null.
+         */
+        dragOffset: mxPoint;
+        /**
+         * Holds the DOM node that is used to represent the drag preview. If this is
+         * null then the source element will be cloned and used for the drag preview.
+         */
+        dragElement: any;
+        /**
+         * Optional <mxRectangle> that specifies the unscaled size of the preview.
+         */
+        previewElement: mxRectangle;
+        /**
+         * Specifies if this drag source is enabled. Default is true.
+         */
+        enabled: boolean;
+        /**
+         * Reference to the <mxGraph> that is the current drop target.
+         */
+        currentGraph: any;
+        /**
+         * Holds the current drop target under the mouse.
+         */
+        currentDropTarget: any;
+        /**
+         * Holds the current drop location.
+         */
+        currentPoint: any;
+        /**
+         * Holds an <mxGuide> for the <currentGraph> if <dragPreview> is not null.
+         */
+        currentGuide: mxGuide;
+        /**
+         * Holds an <mxGuide> for the <currentGraph> if <dragPreview> is not null.
+         */
+        currentHighlight: any;
+        /**
+         * Specifies if the graph should scroll automatically. Default is true.
+         */
+        autoscroll: boolean;
+        /**
+         * Specifies if <mxGuide> should be enabled. Default is true.
+         */
+        guidesEnabled: boolean;
+        /**
+         * Specifies if the grid should be allowed. Default is true.
+         */
+        gridEnabled: boolean;
+        /**
+         * Specifies if drop targets should be highlighted. Default is true.
+         */
+        highlightDropTargets: boolean;
+        /**
+         * ZIndex for the drag element. Default is 100.
+         */
+        dragElementZIndex: number;
+        /**
+         * Opacity of the drag element in %. Default is 70.
+         */
+        dragElementOpacity: number;
+        /**
+         * Whether the event source should be checked in <graphContainerEvent>. Default
+         * is true.
+         */
+        checkEventSource: boolean;
+        /**
          * Returns <enabled>.
          */
         isEnabled(): any;
@@ -5415,6 +5173,53 @@ export module mxgraph {
      */
     export class mxPopupMenu extends mxEventSource {
         constructor(factoryMethod?: any);
+
+        /**
+         * URL of the image to be used for the submenu icon.
+         */
+        submenuImage: string;
+        /**
+         * Specifies the zIndex for the popupmenu and its shadow. Default is 10006.
+         */
+        zIndex: number;
+        /**
+         * Function that is used to create the popup menu. The function takes the
+         * current panning handler, the <mxCell> under the mouse and the mouse
+         * event that triggered the call as arguments.
+         */
+        factoryMethod: any;
+
+        /**
+         * Specifies if popupmenus should be activated by clicking the left mouse
+         * button. Default is false.
+         */
+        useLeftButtonForPopup: boolean;
+
+        /**
+         * Specifies if events are handled. Default is true.
+         */
+        enabled: boolean;
+
+        /**
+         * Contains the number of times <addItem> has been called for a new menu.
+         */
+        itemCount: number;
+
+        /**
+         * Specifies if submenus should be expanded on mouseover. Default is false.
+         */
+        autoExpand: boolean;
+
+        /**
+         * Specifies if separators should only be added if a menu item follows them.
+         * Default is false.
+         */
+        smartSeparators: boolean;
+
+        /**
+         * Specifies if any labels should be visible. Default is true.
+         */
+        labels: boolean;
         /**
          * Initializes the shapes required for this vertex handler.
          */
@@ -7224,109 +7029,76 @@ export module mxgraph {
      * spacing, orientation and offset.
      */
     export class mxStackLayout extends mxGraphLayout {
-        /**
-         * Variable: horizontal
-         *
+        /*
          * Specifies the orientation of the layout. Default is true.
          */
         horizontal: boolean;
-
-        /**
-         * Variable: spacing
-         *
+        /*
          * Specifies the spacing between the cells. Default is 0.
          */
         spacing: number;
-        /**
-         * Variable: x0
-         *
+        /*
          * Specifies the horizontal origin of the layout. Default is 0.
          */
         x0: number;
-        /**
-         * Variable: y0
-         *
+        /*
          * Specifies the vertical origin of the layout. Default is 0.
          */
         y0: number;
-        /**
-         * Variable: border
-         *
+        /*
          * Border to be added if fill is true. Default is 0.
          */
         border: number;
-        /**
-         * Variable: marginTop
-         *
+        /*
          * Top margin for the child area. Default is 0.
          */
         marginTop: number;
-        /**
-         * Variable: marginLeft
-         *
+        /*
          * Left margin for the child area. Default is 0.
          */
         marginLeft: number;
-        /**
-         * Variable: marginRight
-         *
+        /*
          * Right margin for the child area. Default is 0.
          */
         marginRight: number;
-        /**
-         * Variable: marginBottom
-         *
+        /*
          * Bottom margin for the child area. Default is 0.
          */
         marginBottom: number;
-        /**
-         * Variable: keepFirstLocation
-         *
+        /*
          * Boolean indicating if the location of the first cell should be
          * kept, that is, it will not be moved to x0 or y0.
          */
         keeoFirstLocation: boolean;
-        /**
-         * Variable: fill
-         *
+        /*
          * Boolean indicating if dimension should be changed to fill out the parent
          * cell. Default is false.
          */
         fill: boolean;
-        /**
-         * Variable: resizeParent
-         *
+        /*
          * If the parent should be resized to match the width/height of the
          * stack. Default is false.
          */
         resizeParent: boolean;
-        /**
-         * Variable: resizeParentMax
-         *
+        /*
          * Use maximum of existing value and new value for resize of parent.
          * Default is false.
          */
         resizeParentMax: boolean;
-        /**
-         * Variable: resizeLast
-         *
+        /*
          * If the last element should be resized to fill out the parent. Default is
          * false. If <resizeParent> is true then this is ignored.
          */
         resizeLast: boolean;
-        /**
-         * Variable: wrap
-         *
+        /*
          * Value at which a new column or row should be created. Default is null.
          */
         wrap: boolean;
-        /**
-         * Variable: borderCollapse
-         *
+        /*
          * If the strokeWidth should be ignored. Default is true.
          */
         borderCollapse: boolean;
-        constructor(graph: any, horizontal: any, spacing: any, x0: any, y0: any, border: any);
+        constructor(graph: any, horizontal?: any, spacing?: any, x0?: any, y0?: any, border?: any);
         /**
          * Returns <horizontal>.
          */
@@ -7418,7 +7190,119 @@ export module mxgraph {
      * and orientation.
      */
     export class mxCompactTreeLayout extends mxGraphLayout {
-        constructor(graph: any, horizontal: any, invert: any);
+        /**
+         * Specifies the orientation of the layout. Default is true.
+         */
+        horizontal: boolean;
+        /**
+         * Specifies if edge directions should be inverted. Default is false.
+         */
+        invert: boolean;
+        /**
+         * If the parents should be resized to match the width/height of the
+         * children. Default is true.
+         */
+        resizeParent: boolean;
+        /**
+         * Specifies if the parent location should be maintained, so that the
+         * top, left corner stays the same before and after execution of
+         * the layout. Default is false for backwards compatibility.
+         */
+        maintainParentLocation: boolean;
+        /**
+         * Padding added to resized parents. Default is 10.
+         */
+        groupPadding: number;
+        /**
+         * Top padding added to resized parents. Default is 0.
+         */
+        groupPaddingTop: number;
+        /**
+         * Right padding added to resized parents. Default is 0.
+         */
+        groupPaddingRight: number;
+        /**
+         * Bottom padding added to resized parents. Default is 0.
+         */
+        groupPaddingBottom: number;
+        /**
+         * Left padding added to resized parents. Default is 0.
+         */
+        groupPaddingLeft: number;
+        /**
+         * A set of the parents that need updating based on children
+         * process as part of the layout.
+         */
+        parentsChanged: any;
+        /**
+         * Specifies if the tree should be moved to the top, left corner
+         * if it is inside a top-level layer. Default is false.
+         */
+        moveTree: boolean;
+        /**
+         * Specifies if the tree should be moved to the top, left corner
+         * if it is inside a top-level layer. Default is false.
+         */
+        visited: boolean;
+        /**
+         * Holds the levelDistance. Default is 10.
+         */
+        levelDistance: number;
+        /**
+         * Holds the nodeDistance. Default is 20.
+         */
+        nodeDistance: number;
+        /**
+         * Specifies if all edge points of traversed edges should be removed.
+         * Default is true.
+         */
+        resetEdges: boolean;
+        /**
+         * The preferred horizontal distance between edges exiting a vertex.
+         */
+        prefHozEdgeSep: number;
+        /**
+         * The preferred vertical offset between edges exiting a vertex.
+         */
+        prefVertEdgeOff: number;
+        /**
+         * The minimum distance for an edge jetty from a vertex.
+         */
+        minEdgeJetty: number;
+        /**
+         * The size of the vertical buffer in the center of inter-rank channels
+         * where edge control points should not be placed.
+         */
+        channelBuffer: number;
+        /**
+         * Whether or not to apply the internal tree edge routing.
+         */
+        edgeRouting: boolean;
+        /**
+         * Specifies if edges should be sorted according to the order of their
+         * opposite terminal cell in the model.
+         */
+        sortEdges: boolean;
+        /**
+         * Whether or not the tops of cells in each rank should be aligned
+         * across the rank
+         */
+        alignRanks: boolean;
+        /**
+         * An array of the maximum height of cells (relative to the layout direction)
+         * per rank
+         */
+        maxRankHeight: any;
+        /**
+         * The cell to use as the root of the tree
+         */
+        root: any;
+        /**
+         * The internal node representation of the root cell. Do not set directly,
+         * this value is only exposed to assist with post-processing functionality
+         */
+        node: any;
+        constructor(graph: any, horizontal?: any, invert?: any);
         /**
          * Returns a boolean indicating if the given <mxCell> should be ignored as a
          * vertex. This returns true if the cell has no connections.
@@ -7475,49 +7359,16 @@ export module mxgraph {
          * at the given node.
          */
         layout(node: any): void;
-        /**
-         * Function: horizontalLayout
-         */
         horizontalLayout(node: any, x0: any, y0: any, bounds: any): any;
-        /**
-         * Function: verticalLayout
-         */
         verticalLayout(node: any, parent: any, x0: any, y0: any, bounds: any): any;
-        /**
-         * Function: attachParent
-         */
         attachParent(node: any, height: any): void;
-        /**
-         * Function: layoutLeaf
-         */
         layoutLeaf(node: any): void;
-        /**
-         * Function: join
-         */
         join(node: any): any;
-        /**
-         * Function: merge
-         */
         merge(p1: any, p2: any): number;
-        /**
-         * Function: offset
-         */
         offset(p1: any, p2: any, a1: any, a2: any, b1: any, b2: any): number;
-        /**
-         * Function: bridge
-         */
         bridge(line1: any, x1: any, y1: any, line2: any, x2: any, y2: any): Object;
-        /**
-         * Function: createNode
-         */
         createNode(cell: any): Object;
-        /**
-         * Function: apply
-         */
         apply(node: any, bounds: any): any;
-        /**
-         * Function: createLine
-         */
         createLine(dx: any, dy: any, next: any): Object;
         /**
          * Adjust parent cells whose child geometries have changed. The default
@@ -10326,9 +10177,6 @@ export module mxgraph {
          * @param cell - <mxCell> to remove from the selection.
          */
         removeCell(cell: mxCell): void;
-        /**
-         * Function: removeCells
-         */
         removeCells(cells: mxCell[]): void;
         /**
          * Inner callback to add the specified <mxCell> to the selection. No event
@@ -10474,6 +10322,97 @@ export module mxgraph {
     export class mxCellEditor {
         constructor(graph: any);
         /**
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph: any;
+
+        /**
+         * Holds the DIV that is used for text editing. Note that this may be null before the first
+         * edit. Instantiated in <init>.
+         */
+        textarea: any;
+
+        /**
+         * Reference to the <mxCell> that is currently being edited.
+         */
+        editingCell: mxCell;
+
+        /**
+         * Reference to the event that was used to start editing.
+         */
+        trigger: any;
+
+        /**
+         * Specifies if the label has been modified.
+         */
+        modified: boolean;
+
+        /**
+         * Specifies if the textarea should be resized while the text is being edited.
+         * Default is true.
+         */
+        autoSize: boolean;
+
+        /**
+         * Specifies if the text should be selected when editing starts. Default is
+         * true.
+         */
+        selectText: boolean;
+
+        /**
+         * Text to be displayed for empty labels. Default is '' or '<br>' in Firefox as
+         * a workaround for the missing cursor bug for empty content editable. This can
+         * be set to eg. "[Type Here]" to easier visualize editing of empty labels. The
+         * value is only displayed before the first keystroke and is never used as the
+         * actual editing value.
+         */
+        emptyLabelText: string;
+
+        /**
+         * If true, pressing the escape key will stop editing and not accept the new
+         * value. Change this to false to accept the new value on escape, and cancel
+         * editing on Shift+Escape instead. Default is true.
+         */
+        escapeCancelsEditing: boolean;
+
+        /**
+         * Reference to the label DOM node that has been hidden.
+         */
+        textNode: string;
+
+        /**
+         * Specifies the zIndex for the textarea. Default is 5.
+         */
+        zIndex: number;
+
+        /**
+         * Defines the minimum width and height to be used in <resize>. Default is 0x20px.
+         */
+        minResize: mxRectangle;
+
+        /**
+         * Correction factor for word wrapping width. Default is 2 in quirks, 0 in IE
+         * 11 and 1 in all other browsers and modes.
+         */
+        wordWrapPadding: number;
+
+        /**
+         * If <focusLost> should be called if <textarea> loses the focus. Default is false.
+         */
+        blurEnabled: boolean;
+
+        /**
+         * Holds the initial editing value to check if the current value was modified.
+         */
+        initialValue: any;
+
+        /**
+         * Holds the current temporary horizontal alignment for the cell style. If this
+         * is modified then the current text alignment is changed and the cell style is
+         * updated when the value is applied.
+         */
+        align: any;
+        /**
          * Creates the <textarea> and installs the event listeners. The key handler
          * updates the <modified> state.
          */
@@ -10603,6 +10542,12 @@ export module mxgraph {
      * swimlane, connector, actor and cloud.
      */
     export class mxCellRenderer {
+        /**
+         * Static array that contains the globally registered shapes which are
+         * known to all instances of this class. For adding new shapes you should
+         * use the static <mxCellRenderer.registerShape> function.
+         */
+        static defaultShapes: any;
         /**
          * Registers the given constructor under the specified key in this instance
          * of the renderer.
@@ -13079,8 +13024,9 @@ export module mxgraph {
                 | mxRootChange
                 | mxChildChange
                 | {
-                    cell: mxCell;
-                })[],
+                      cell: mxCell;
+                  }
+            )[],
         ): mxCell[];
         /**
          * Called when the graph model changes. Invokes <processChange> on each
@@ -13671,8 +13617,23 @@ export module mxgraph {
          * @param allowInvalidEdges - Optional boolean that specifies if invalid edges
          * should be cloned. Default is true.
          * @param mapping - Optional mapping for existing clones.
+         * @param keepPosition - Optional boolean indicating if the position of the cells should
+         * be updated to reflect the lost parent cell. Default is false.
          */
-        cloneCells(cells: mxCell[], allowInvalidEdges?: boolean, mapping?: any): any;
+        cloneCells(cells: mxCell[], allowInvalidEdges?: boolean, mapping?: any, keepPosition?: any): any;
+        /**
+         * Returns the clone for the given cell. Uses <cloneCells>.
+         *
+         * Parameters:
+         *
+         * cell - <mxCell> to be cloned.
+         * allowInvalidEdges - Optional boolean that specifies if invalid edges
+         * should be cloned. Default is true.
+         * mapping - Optional mapping for existing clones.
+         * keepPosition - Optional boolean indicating if the position of the cells should
+         * be updated to reflect the lost parent cell. Default is false.
+         */
+        cloneCell(cell: mxCell, allowInvalidEdges?: boolean, mapping?: any, keepPosition?: any): any;
         /**
          * Adds a new vertex into the given parent {@link mxCell} using value as the user
          * object and the given coordinates as the {@link mxGeometry} of the new vertex.
@@ -16352,6 +16313,73 @@ export module mxgraph {
     export class mxOutline {
         constructor(source: any, container: any);
         /**
+         * Reference to the source <mxGraph>.
+         */
+        source: any;
+        /**
+         * Reference to the <mxGraph> that renders the outline.
+         */
+        outline: any;
+        /**
+         * Renderhint to be used for the outline graph. Default is faster.
+         */
+        graphRenderHint: string;
+        /**
+         * Specifies if events are handled. Default is true.
+         */
+        enabled: boolean;
+        /**
+         * Specifies a viewport rectangle should be shown. Default is true.
+         */
+        showViewport: boolean;
+        /**
+         * Border to be added at the bottom and right. Default is 10.
+         */
+        border: number;
+        /**
+         * Specifies the size of the sizer handler. Default is 8.
+         */
+        sizerSize: number;
+        /**
+         * Specifies if labels should be visible in the outline. Default is false.
+         */
+        labelsVisible: boolean;
+        /**
+         * Specifies if <update> should be called for <mxEvent.PAN> in the source
+         * graph. Default is false.
+         */
+        updateOnPan: boolean;
+        /**
+         * Optional <mxImage> to be used for the sizer. Default is null.
+         */
+        sizerImage: mxImage;
+        /**
+         * Minimum scale to be used. Default is 0.0001.
+         */
+        minScale: number;
+        /**
+         * Optional boolean flag to suspend updates. Default is false. This flag will
+         * also suspend repaints of the outline. To toggle this switch, use the
+         * following code.
+         *
+         * (code)
+         * nav.suspended = !nav.suspended;
+         *
+         * if (!nav.suspended)
+         * {
+         *   nav.update(true);
+         * }
+         * (end)
+         */
+        suspended: boolean;
+        /**
+         * Specifies if VML should be used to render the handles in this control. This
+         * is true for IE8 standards mode and false for all other browsers and modes.
+         * This is a workaround for rendering issues of HTML elements over elements
+         * with filters in IE 8 standards mode.
+         */
+        forceVmlHandles: boolean;
+        /**
          * Creates the <mxGraph> used in the outline.
          */
         createGraph(container: any): mxGraph;
@@ -16833,25 +16861,10 @@ export module mxgraph {
          * Returns true if this contains no entries.
          */
         isEmpty(): boolean;
-        /**
-         * Function: moveState
-         */
         moveState(state: any, dx: any, dy: any, add: any, includeEdges: any): any;
-        /**
-         * Function: show
-         */
         show(visitor: any): void;
-        /**
-         * Function: translateState
-         */
         translateState(state: any, dx: any, dy: any): void;
-        /**
-         * Function: revalidateState
-         */
         revalidateState(state: any, dx: any, dy: any, visitor: any): void;
-        /**
-         * Function: addEdges
-         */
         addEdges(state: any): void;
     }
 
@@ -16874,6 +16887,15 @@ export module mxgraph {
          */
         name: any;
         /**
+         * Optional float that specifies the horizontal offset of the constraint.
+         */
+        dx: number;
+
+        /**
+         * Optional float that specifies the vertical offset of the constraint.
+         */
+        dy: number;
+        /**
          * Constructs a new connection constraint for the given point and boolean
          * arguments.
          *
@@ -16882,7 +16904,7 @@ export module mxgraph {
          * @param perimeter - Optional boolean that specifies if the fixed point should be
          * projected onto the perimeter of the terminal. Default is true.
          */
-        constructor(point?: mxPoint, perimeter?: boolean, name?: string);
+        constructor(point?: mxPoint, perimeter?: boolean, name?: string, dx?: number, dy?: number);
     }
 
     /**
@@ -16905,6 +16927,124 @@ export module mxgraph {
      */
     export class mxGraphHandler {
         constructor(graph: any);
+        /**
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph: any;
+
+        /**
+         * Defines the maximum number of cells to paint subhandles
+         * for. Default is 50 for Firefox and 20 for IE. Set this
+         * to 0 if you want an unlimited number of handles to be
+         * displayed. This is only recommended if the number of
+         * cells in the graph is limited to a small number, eg.
+         * 500.
+         */
+        maxCells: number;
+
+        /**
+         * Specifies if events are handled. Default is true.
+         */
+        enabled: boolean;
+
+        /**
+         * Specifies if drop targets under the mouse should be enabled. Default is
+         * true.
+         */
+        highlightEnabled: boolean;
+
+        /**
+         * Specifies if cloning by control-drag is enabled. Default is true.
+         */
+        cloneEnabled: boolean;
+
+        /**
+         * Specifies if moving is enabled. Default is true.
+         */
+        moveEnabled: boolean;
+        /**
+         * Holds the <mxGuide> instance that is used for alignment.
+         */
+        guide: mxGuide;
+
+        /**
+         * Stores the x-coordinate of the current mouse move.
+         */
+        currentDx: any;
+
+        /**
+         * Stores the y-coordinate of the current mouse move.
+         */
+        currentDy: any;
+
+        /**
+         * Specifies if a move cursor should be shown if the mouse is over a movable
+         * cell. Default is true.
+         */
+        updateCursor: boolean;
+
+        /**
+         * Specifies if selecting is enabled. Default is true.
+         */
+        selectEnabled: boolean;
+
+        /**
+         * Specifies if cells may be moved out of their parents. Default is true.
+         */
+        removeCellsFromParent: boolean;
+
+        /**
+         * If empty parents should be removed from the model after all child cells
+         * have been moved out. Default is true.
+         */
+        removeEmptyParents: boolean;
+
+        /**
+         * Specifies if drop events are interpreted as new connections if no other
+         * drop action is defined. Default is false.
+         */
+        connectOnDrop: boolean;
+
+        /**
+         * Specifies if the view should be scrolled so that a moved cell is
+         * visible. Default is true.
+         */
+        scrollOnMove: boolean;
+
+        /**
+         * Specifies the minimum number of pixels for the width and height of a
+         * selection border. Default is 6.
+         */
+        minimumSize: number;
+
+        /**
+         * Specifies if the graph container should be used for preview. If this is used
+         * then drop target detection relies entirely on <mxGraph.getCellAt> because
+         * the HTML preview does not "let events through". Default is false.
+         */
+        htmlPreview: boolean;
+
+        /**
+         * Reference to the <mxShape> that represents the preview.
+         */
+        shape: mxShape;
+
+        /**
+         * Specifies if the bounding box should allow for rotation. Default is true.
+         */
+        rotationEnabled: boolean;
+
+        /**
+         * Maximum number of cells for which live preview should be used. Default is 0
+         * which means no live preview.
+         */
+        maxLivePreview: number;
+
+        /**
+         * If live preview is allowed on this system. Default is true for systems with
+         * SVG support.
+         */
+        allowLivePreview: boolean;
         /**
          * Specifies if other cells should be used for snapping the right, center or left side of the current selection.  Default is false.
          */
@@ -17303,6 +17443,43 @@ export module mxgraph {
      */
     export class mxPopupMenuHandler extends mxPopupMenu {
         constructor(graph?: any, factoryMethod?: any);
+
+        /**
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph: any;
+
+        /**
+         * Specifies if cells should be selected if a popupmenu is displayed for
+         * them. Default is true.
+         */
+        selectOnPopup: boolean;
+
+        /**
+         * Specifies if cells should be deselected if a popupmenu is displayed for
+         * the diagram background. Default is true.
+         */
+        clearSelectionOnBackground: boolean;
+
+        /**
+         * X-coordinate of the mouse down event.
+         */
+        triggerX: any;
+
+        /**
+         * Y-coordinate of the mouse down event.
+         */
+        triggerY: any;
+
+        /**
+         * Screen X-coordinate of the mouse down event.
+         */
+        screenX: any;
+
+        /**
+         * Screen Y-coordinate of the mouse down event.
+         */
+        screenY: any;
         /**
          * Initializes the shapes required for this vertex handler.
          */
@@ -17856,6 +18033,14 @@ export module mxgraph {
          */
         setEnabled(enabled: any): void;
         /**
+         * Returns true if the given cell does not allow new connections to be created.
+         *
+         * Parameters:
+         *
+         * cell - <mxCell>
+         */
+        isCellEnabled(cell: mxCell): boolean;
+        /**
          * Returns <insertBeforeSource> for non-loops and false for loops.
          *
          * Parameters:
@@ -18212,6 +18397,26 @@ export module mxgraph {
     export class mxConstraintHandler {
         constructor(graph: any);
         /**
+         * <mxImage> to be used as the image for fixed connection points.
+         */
+        pointImage: mxImage;
+
+        /**
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph: any;
+
+        /**
+         * Specifies if events are handled. Default is true.
+         */
+        enabled: boolean;
+
+        /**
+         * Specifies the color for the highlight. Default is <mxConstants.DEFAULT_VALID_COLOR>.
+         */
+        highlightColor: string;
+
+        /**
          * Returns true if events are handled. This implementation
          * returns <enabled>.
          */
@@ -18318,6 +18523,41 @@ export module mxgraph {
      */
     export class mxRubberband {
         constructor(graph: any);
+        /**
+         * Specifies the default opacity to be used for the rubberband div. Default
+         * is 20.
+         */
+        defaultOpacity: number;
+
+        /**
+         * Specifies if events are handled. Default is true.
+         */
+        enabled: boolean;
+
+        /**
+         * Holds the DIV element which is currently visible.
+         */
+        div: any;
+
+        /**
+         * Holds the DIV element which is used to display the rubberband.
+         */
+        sharedDiv: any;
+
+        /**
+         * Holds the value of the x argument in the last call to <update>.
+         */
+        currentX: number;
+
+        /**
+         * Holds the value of the y argument in the last call to <update>.
+         */
+        currentY: number;
+
+        /**
+         * Optional fade out effect. Default is false.
+         */
+        fadeOut: boolean;
         /**
          * Returns true if events are handled. This implementation returns
          * <enabled>.
@@ -18503,6 +18743,89 @@ export module mxgraph {
          * Reference to the mxCellState being modified.
          */
         state: mxCellState;
+        /**
+         * Specifies if only one sizer handle at the bottom, right corner should be
+         * used. Default is false.
+         */
+        singleSizer: boolean;
+
+        /**
+         * Holds the index of the current handle.
+         */
+        index: any;
+
+        /**
+         * Specifies if the bounds of handles should be used for hit-detection in IE or
+         * if <tolerance> > 0. Default is true.
+         */
+        allowHandleBoundsCheck: boolean;
+
+        /**
+         * Optional <mxImage> to be used as handles. Default is null.
+         */
+        handleImage: mxImage;
+
+        /**
+         * Optional tolerance for hit-detection in <getHandleForEvent>. Default is 0.
+         */
+        tolerance: number;
+
+        /**
+         * Specifies if a rotation handle should be visible. Default is false.
+         */
+        rotationEnabled: boolean;
+
+        /**
+         * Specifies if the parent should be highlighted if a child cell is selected.
+         * Default is false.
+         */
+        parentHighlightEnabled: boolean;
+
+        /**
+         * Specifies if rotation steps should be "rasterized" depening on the distance
+         * to the handle. Default is true.
+         */
+        rotationRaster: boolean;
+
+        /**
+         * Specifies the cursor for the rotation handle. Default is 'crosshair'.
+         */
+        rotationCursor: string;
+
+        /**
+         * Specifies if resize should change the cell in-place. This is an experimental
+         * feature for non-touch devices. Default is false.
+         */
+        livePreview: boolean;
+
+        /**
+         * Specifies if sizers should be hidden and spaced if the vertex is small.
+         * Default is false.
+         */
+        manageSizers: boolean;
+
+        /**
+         * Specifies if the size of groups should be constrained by the children.
+         * Default is false.
+         */
+        constrainGroupByChildren: boolean;
+
+        /**
+         * Vertical spacing for rotation icon. Default is -16.
+         */
+        rotationHandleVSpacing: number;
+
+        /**
+         * The horizontal offset for the handles. This is updated in <redrawHandles>
+         * if <manageSizers> is true and the sizers are offset horizontally.
+         */
+        horizontalOffset: number;
+
+        /**
+         * The horizontal offset for the handles. This is updated in <redrawHandles>
+         * if <manageSizers> is true and the sizers are offset vertically.
+         */
+        verticalOffset: number;
         /**
          * Initializes the shapes required for this vertex handler.
          */
@@ -18811,6 +19134,142 @@ export module mxgraph {
      */
     export class mxEdgeHandler {
         constructor(state: any);
+        /**
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph: any;
+
+        /**
+         * Reference to the <mxCellState> being modified.
+         */
+        state: any;
+
+        /**
+         * Holds the <mxTerminalMarker> which is used for highlighting terminals.
+         */
+        marker: any;
+
+        /**
+         * Holds the <mxConstraintHandler> used for drawing and highlighting
+         * constraints.
+         */
+        constraintHandler: mxConstraintHandler;
+
+        /**
+         * Holds the current validation error while a connection is being changed.
+         */
+        error: any;
+
+        /**
+         * Holds the <mxShape> that represents the preview edge.
+         */
+        shape: mxShape;
+
+        /**
+         * Holds the <mxShapes> that represent the points.
+         */
+        bends: any;
+
+        /**
+         * Holds the <mxShape> that represents the label position.
+         */
+        labelShape: mxShape;
+
+        /**
+         * Specifies if cloning by control-drag is enabled. Default is true.
+         */
+        cloneEnabled: boolean;
+
+        /**
+         * Specifies if adding bends by shift-click is enabled. Default is false.
+         * Note: This experimental feature is not recommended for production use.
+         */
+        addEnabled: boolean;
+
+        /**
+         * Specifies if removing bends by shift-click is enabled. Default is false.
+         * Note: This experimental feature is not recommended for production use.
+         */
+        removeEnabled: boolean;
+
+        /**
+         * Specifies if removing bends by double click is enabled. Default is false.
+         */
+        dblClickRemoveEnabled: boolean;
+
+        /**
+         * Specifies if removing bends by dropping them on other bends is enabled.
+         * Default is false.
+         */
+        mergeRemoveEnabled: boolean;
+
+        /**
+         * Specifies if removing bends by creating straight segments should be enabled.
+         * If enabled, this can be overridden by holding down the alt key while moving.
+         * Default is false.
+         */
+        straightRemoveEnabled: boolean;
+
+        /**
+         * Specifies if virtual bends should be added in the center of each
+         * segments. These bends can then be used to add new waypoints.
+         * Default is false.
+         */
+        virtualBendsEnabled: boolean;
+
+        /**
+         * Opacity to be used for virtual bends (see <virtualBendsEnabled>).
+         * Default is 20.
+         */
+        virtualBendOpacity: number;
+
+        /**
+         * Specifies if the parent should be highlighted if a child cell is selected.
+         * Default is false.
+         */
+        parentHighlightEnabled: boolean;
+
+        /**
+         * Specifies if bends should be added to the graph container. This is updated
+         * in <init> based on whether the edge or one of its terminals has an HTML
+         * label in the container.
+         */
+        preferHtml: boolean;
+
+        /**
+         * Specifies if the bounds of handles should be used for hit-detection in IE
+         * Default is true.
+         */
+        allowHandleBoundsCheck: boolean;
+
+        /**
+         * Specifies if waypoints should snap to the routing centers of terminals.
+         * Default is false.
+         */
+        snapToTerminals: boolean;
+
+        /**
+         * Optional <mxImage> to be used as handles. Default is null.
+         */
+        handleImage: mxImage;
+
+        /**
+         * Optional tolerance for hit-detection in <getHandleForEvent>. Default is 0.
+         */
+        tolerance: number;
+
+        /**
+         * Specifies if connections to the outline of a highlighted target should be
+         * enabled. This will allow to place the connection point along the outline of
+         * the highlighted target. Default is false.
+         */
+        outlineConnect: boolean;
+
+        /**
+         * Specifies if the label handle should be moved if it intersects with another
+         * handle. Uses <checkLabelHandle> for checking and moving. Default is false.
+         */
+        manageLabelHandle: boolean;
         /**
          * Initializes the shapes required for this edge handler.
          */
@@ -19463,6 +19922,10 @@ export module mxgraph {
          */
         init(): void;
         /**
+         * Returns the <mxCellState> to be used for showing a tooltip for this event.
+         */
+        getStateForEvent(me: any): any;
+        /**
          * Handles the event by initiating a rubberband selection. By consuming the
          * event all subsequent events of the gesture are redirected to this
          * handler.
@@ -19484,7 +19947,7 @@ export module mxgraph {
         /**
          * Resets and/or restarts the timer to trigger the display of the tooltip.
          */
-        reset(me: any, restart: any): void;
+        reset(me: any, restart: any, state: any): void;
         /**
          * Hides the tooltip and resets the timer.
          */
@@ -19608,7 +20071,34 @@ export module mxgraph {
      * Constructs a cell highlight.
      */
     export class mxCellHighlight {
-        constructor(graph: any, highlightColor: any, strokeWidth: any, dashed: any);
+        constructor(graph: any, highlightColor: any, strokeWidth: any, dashed?: any);
+        /**
+         * Specifies if the highlights should appear on top of everything
+         * else in the overlay pane. Default is false.
+         */
+        keepOnTop: boolean;
+
+        /**
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph: any;
+
+        /**
+         * Reference to the <mxCellState>.
+         */
+        state: any;
+
+        /**
+         * Specifies the spacing between the highlight for vertices and the vertex.
+         * Default is 2.
+         */
+        spacing: number;
+
+        /**
+         * Holds the handler that automatically invokes reset if the highlight
+         * should be hidden.
+         */
+        resetHandler: any;
         /**
          * Sets the color of the rectangle used to highlight drop targets.
          *
@@ -21030,6 +21520,22 @@ export module mxgraph {
      */
     export class mxCodec {
         constructor(document?: any);
+        /*
+         * The owner document of the codec.
+         */
+        document: any;
+        /*
+         * Maps from IDs to objects.
+         */
+        objects: any;
+        /**
+         * Lookup table for resolving IDs to elements.
+         */
+        elements: any;
+        /*
+         * Specifies if default values should be encoded. Default is false.
+         */
+        encodeDefaults: any;
         /**
          * Assoiates the given object with the given ID and returns the given object.
          *
@@ -21783,6 +22289,96 @@ export module mxgraph {
      * deterministic. Default is true.
      */
     export class mxHierarchicalLayout extends mxGraphLayout {
+        /**
+         * Holds the array of <mxCell> that this layout contains.
+         */
+        roots: any;
+        /**
+         * Specifies if the parent should be resized after the layout so that it
+         * contains all the child cells. Default is false. See also <parentBorder>.
+         */
+        resizeParent: boolean;
+        /**
+         * Specifies if the parent location should be maintained, so that the
+         * top, left corner stays the same before and after execution of
+         * the layout. Default is false for backwards compatibility.
+         */
+        maintainParentLocation: boolean;
+        /**
+         * Specifies if the parent should be moved if <resizeParent> is enabled.
+         * Default is false.
+         */
+        moveParent: boolean;
+        /**
+         * The border to be added around the children if the parent is to be
+         * resized using <resizeParent>. Default is 0.
+         */
+        parentBorder: number;
+        /**
+         * The spacing buffer added between cells on the same layer. Default is 30.
+         */
+        intraCellSpacing: number;
+        /**
+         * The spacing buffer added between cell on adjacent layers. Default is 100.
+         */
+        interRankCellSpacing: number;
+        /**
+         * The spacing buffer between unconnected hierarchies. Default is 60.
+         */
+        interHierarchySpacing: number;
+        /**
+         * The distance between each parallel edge on each ranks for long edges.
+         * Default is 10.
+         */
+        parallelEdgeSpacing: number;
+        /**
+         * The position of the root node(s) relative to the laid out graph in.
+         * Default is <mxConstants.DIRECTION_NORTH>.
+         */
+        orientation: string;
+        /**
+         * Whether or not to perform local optimisations and iterate multiple times
+         * through the algorithm. Default is true.
+         */
+        fineTuning: boolean;
+        /**
+         * Whether or not to tighten the assigned ranks of vertices up towards
+         * the source cells. Default is true.
+         */
+        tightenToSource: boolean;
+        /**
+         * Specifies if the STYLE_NOEDGESTYLE flag should be set on edges that are
+         * modified by the result. Default is true.
+         */
+        disableEdgeStyle: boolean;
+        /**
+         * Whether or not to drill into child cells and layout in reverse
+         * group order. This also cause the layout to navigate edges whose
+         * terminal vertices have different parents but are in the same
+         * ancestry chain. Default is true.
+         */
+        traverseAncestors: boolean;
+        /**
+         * The internal <mxGraphHierarchyModel> formed of the layout.
+         */
+        model: any;
+        /**
+         * A cache of edges whose source terminal is the key
+         */
+        edgesCache: any;
+        /**
+         * A cache of edges whose source terminal is the key
+         */
+        edgeSourceTermCache: any;
+        /**
+         * A cache of edges whose source terminal is the key
+         */
+        edgesTargetTermCache: any;
+        /**
+         * The style to apply between cell layers to edge segments.
+         * Default is <mxHierarchicalEdgeStyle.POLYLINE>.
+         */
+        edgeStyle: number;
         constructor(graph: any, orientation?: string, deterministic?: boolean);
         /**
          * Returns the internal <mxGraphHierarchyModel> for this layout algorithm.
@@ -22469,9 +23065,6 @@ export module mxgraph {
          * Set the value of temp for the specified layer
          */
         setGeneralPurposeVariable(layer: any, value: any): void;
-        /**
-         * Function: isAncestor
-         */
         isAncestor(otherNode: any): boolean;
         /**
          * Gets the core vertex associated with this wrapper
