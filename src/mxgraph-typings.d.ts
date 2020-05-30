@@ -6876,6 +6876,20 @@ export module mxgraph {
          */
         moveCell(cell: any, x: any, y: any): void;
         /**
+         * Function: resizeCell
+         *
+         * Notified when a cell is being resized in a parent that has automatic
+         * layout to update the other cells in the layout.
+         *
+         * Empty implementation.
+         *
+         * Parameters:
+         *
+         * cell - <mxCell> which has been moved.
+         * bounds - <mxRectangle> that represents the new cell bounds.
+         */
+        resizeCell(cell: any, bounds: any): void;
+        /**
          * Executes the layout algorithm for the children of the given parent.
          *
          * Parameters:
