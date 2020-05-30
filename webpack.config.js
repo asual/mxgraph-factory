@@ -169,12 +169,14 @@ const config = {
         hints: false,
     },
     plugins: [
-        new CopyWebpackPlugin([
-            {
-                context: "src",
-                from: "*.d.ts",
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    context: "src",
+                    from: "*.d.ts",
+                },
+            ]
+        }),
     ],
     resolve: {
         extensions: [".js", ".ts"],
