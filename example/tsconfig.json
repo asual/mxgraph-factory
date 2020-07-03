@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "declarationDir": "dist",
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "lib": ["dom", "dom.iterable", "es2018"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": false,
+        "strict": true,
+        "target": "es5"
+    },
+    "include": ["**/*"]
+}

@@ -1,0 +1,19 @@
+{
+    "name": "mxgraph-factory-example",
+    "scripts": {
+        "start": "webpack-dev-server"
+    },
+    "dependencies": {
+        "mxgraph-factory": "../"
+    },
+    "devDependencies": {
+        "html-webpack-plugin": "4.3.0",
+        "ts-loader": "7.0.5",
+        "tslint": "6.1.2",
+        "tslint-loader": "3.5.4",
+        "typescript": "3.9.6",
+        "webpack": "4.43.0",
+        "webpack-cli": "3.3.12",
+        "webpack-dev-server": "3.11.0"
+    }
+}
