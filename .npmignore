@@ -4,6 +4,7 @@
 .prettierrc
 .vscode
 
+example
 src
 npm-debug.log*
 package-lock.json
